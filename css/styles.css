@@ -1,0 +1,279 @@
+:root {
+  --bg: #0f172a;
+  --panel: #0b1220;
+  --muted: #9aa4b2;
+  --accent: #60a5fa;
+  --gap: 6px;
+  --time-row-height: 40px;
+  /* altura por slot de 30min */
+}
+
+* {
+  box-sizing: border-box;
+  font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+}
+
+body {
+  margin: 18px;
+  background: linear-gradient(180deg, #071233 0%, #081226 100%);
+  color: #e6eef8;
+}
+
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 18px;
+}
+
+h1 {
+  margin: 0 0 12px;
+  font-size: 18px;
+  font-weight: 600;
+  color: #fff
+}
+
+.legend {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin: 12px 0 18px
+}
+
+.legend .item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: var(--muted)
+}
+
+.chip {
+  width: 14px;
+  height: 14px;
+  border-radius: 4px;
+  display: inline-block
+}
+
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin: 14px 0 18px;
+  font-size: 13px;
+}
+
+.filters label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  color: #dbeafe;
+}
+
+.filters input {
+  accent-color: var(--accent);
+}
+
+
+/* Grid layout: 1 column for times + 5 columns (Lun-Vie) */
+.calendar {
+  display: grid;
+  grid-template-columns: 80px repeat(5, 1fr);
+  gap: var(--gap);
+  background: rgba(255, 255, 255, 0.02);
+  padding: 12px;
+  border-radius: 12px;
+  box-shadow: 0 6px 18px rgba(2, 6, 23, 0.65);
+}
+
+/* Header row (day names) */
+.day-header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  text-align: left;
+  padding: 8px 10px;
+  font-weight: 600;
+  font-size: 14px;
+  color: #dbeafe;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.02), transparent);
+  border-radius: 8px;
+}
+
+.time-header {
+  color: var(--muted);
+  font-weight: 600;
+}
+
+/* Time column / slots column */
+.times {
+  grid-column: 1/2;
+  display: grid;
+  row-gap: var(--gap);
+  padding-right: 8px;
+}
+
+/* the time slots container (the long vertical column) */
+.slots {
+  display: grid;
+  grid-auto-rows: var(--time-row-height);
+}
+
+.slot {
+  padding-left: 8px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  font-size: 12px;
+  color: var(--muted);
+  height: var(--time-row-height);
+}
+
+.slot span {
+  line-height: 1;
+}
+
+
+/* Day columns (stack of rows) */
+.day-column {
+  background: transparent;
+  min-height: calc(var(--time-row-height) * 23 + var(--gap) * 22);
+  border-radius: 8px;
+  position: relative;
+}
+
+/* The grid that will receive absolutely positioned events */
+.day-grid {
+  display: grid;
+  grid-template-rows: repeat(23, var(--time-row-height));
+  gap: var(--gap);
+  position: relative;
+  height: calc(var(--time-row-height) * 23 + var(--gap) * 22);
+}
+
+/* Event blocks */
+.event {
+  position: relative;
+  padding: 8px 10px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #071133;
+  box-shadow: 0 6px 14px rgba(2, 6, 23, 0.45), inset 0 -4px 8px rgba(0, 0, 0, 0.06);
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  line-height: 1.05;
+  overflow: hidden;
+}
+
+.event small {
+  position: absolute;
+  bottom: 6px;
+  right: 8px;
+  font-size: 11px;
+  font-weight: 600;
+  color: rgba(7, 17, 51, 0.7);
+}
+
+
+/* Color palette per module prefix (DAW_...) - add as needed */
+.m-DAW_DWES {
+  background: linear-gradient(180deg, #fef08a, #facc15)
+}
+
+.m-DAW_BD {
+  background: linear-gradient(180deg, #a7f3d0, #34d399)
+}
+
+.m-DAW_IPE1 {
+  background: linear-gradient(180deg, #bfdbfe, #60a5fa)
+}
+
+.m-DAW_DWEC {
+  background: linear-gradient(180deg, #ffd7d7, #fb7185)
+}
+
+.m-DAW_PROG {
+  background: linear-gradient(180deg, #e9d5ff, #a78bfa)
+}
+
+.m-DAW_EIE {
+  background: linear-gradient(180deg, #c7f9ff, #67e8f9)
+}
+
+.m-DAW_IPE2 {
+  background: linear-gradient(180deg, #fed7aa, #fb923c)
+}
+
+.m-DAW_SASP {
+  background: linear-gradient(180deg, #d1fae5, #34d399)
+}
+
+.m-DAW_DASP {
+  background: linear-gradient(180deg, #f0abfc, #d946ef)
+}
+
+.m-DAW_FOL {
+  background: linear-gradient(180deg, #c4b5fd, #8b5cf6)
+}
+
+.m-DAW_ING_P {
+  background: linear-gradient(180deg, #dbeafe, #60a5fa)
+}
+
+.m-DAW_DW {
+  background: linear-gradient(180deg, #ffd7b5, #fb923c)
+}
+
+.m-DAW_DIW {
+  background: linear-gradient(180deg, #fce7f3, #f9a8d4)
+}
+
+.m-DAW_OPT_ALEP {
+  background: linear-gradient(180deg, #fef3c7, #f59e0b)
+}
+
+.m-DAW_OPT_DAC {
+  background: linear-gradient(180deg, #c7f9ff, #38bdf8)
+}
+
+.m-DAW_DAW {
+  background: linear-gradient(180deg, #e6e6fa, #a3a3ff)
+}
+
+.m-DAW_ED {
+  background: linear-gradient(180deg, #fbcfe8, #fb7185)
+}
+
+.m-DAW_SI {
+  background: linear-gradient(180deg, #d1fae5, #10b981)
+}
+
+.m-DAW_LMSGI {
+  background: linear-gradient(180deg, #fde68a, #f59e0b)
+}
+
+/* make events stretch to the grid cells using CSS grid row start / end via inline style */
+.event .room {
+  font-size: 11px;
+  color: rgba(7, 17, 51, 0.7);
+  font-weight: 700;
+  margin-left: auto
+}
+
+/* small screens */
+@media (max-width:880px) {
+  .calendar {
+    grid-template-columns: 60px repeat(5, 1fr);
+    gap: 6px
+  }
+
+  :root {
+    --time-row-height: 36px
+  }
+
+  .container {
+    padding: 10px
+  }
+}
