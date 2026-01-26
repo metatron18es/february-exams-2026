@@ -12,7 +12,32 @@
     <h1>EXÁMENES PARCIALES DEL C.F.G.S. de D.A.W. – Del 2 al 6 de Febrero del 2026</h1>
 
     <!-- Filtros generados por JS -->
-    <div class="filters"></div>
+    <div class="filters">
+      <div class="filter-bar">
+
+        <div class="dropdown dropdown-trigger">
+          <div class="chips"></div>
+
+          <div class="dropdown-panel hidden">
+            <label>
+              <input
+                id="filter-search"
+                type="search"
+                class="filter-search"
+                placeholder="Buscar módulo…"
+              />
+            </label>
+
+            <label class="filter-all">
+                <input type="checkbox" id="filter-all" checked>
+                Seleccionar todos
+            </label>
+
+            <div class="filter-list"></div>
+          </div>
+        </div>
+      </div>
+    </div>
 
     <div class="calendar" style="grid-template-rows: 48px repeat(24, var(--time-row-height));">
 
