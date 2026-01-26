@@ -138,18 +138,6 @@ Examen 2
 
 ---
 
-## 🔁 Usar otro archivo JS
-
-Puedes cargar otra lógica simplemente cambiando el script en `index.html`:
-
-```html
-<script src="js/otro-main.js"></script>
-```
-
-Mientras respete la estructura de datos, funcionará sin cambios adicionales.
-
----
-
 ## 🤝 Contribuciones
 
 ### Pull Requests (PR)
