@@ -163,6 +163,10 @@ h1 {
   font-size: 13px;
   font-weight: 600;
   color: #071133;
+  background-color: color-mix(in srgb,
+      var(--event-color),
+      white 80%);
+  border-left: 6px solid var(--event-color);
   box-shadow: 0 6px 14px rgba(2, 6, 23, 0.45), inset 0 -4px 8px rgba(0, 0, 0, 0.06);
   display: flex;
   align-items: flex-start;
@@ -178,84 +182,6 @@ h1 {
   font-size: 11px;
   font-weight: 600;
   color: rgba(7, 17, 51, 0.7);
-}
-
-
-/* Color palette per module prefix (DAW_...) - add as needed */
-.m-DAW_DWES {
-  background: linear-gradient(180deg, #fef08a, #facc15)
-}
-
-.m-DAW_BD {
-  background: linear-gradient(180deg, #a7f3d0, #34d399)
-}
-
-.m-DAW_IPE1 {
-  background: linear-gradient(180deg, #bfdbfe, #60a5fa)
-}
-
-.m-DAW_DWEC {
-  background: linear-gradient(180deg, #ffd7d7, #fb7185)
-}
-
-.m-DAW_PROG {
-  background: linear-gradient(180deg, #e9d5ff, #a78bfa)
-}
-
-.m-DAW_EIE {
-  background: linear-gradient(180deg, #c7f9ff, #67e8f9)
-}
-
-.m-DAW_IPE2 {
-  background: linear-gradient(180deg, #fed7aa, #fb923c)
-}
-
-.m-DAW_SASP {
-  background: linear-gradient(180deg, #d1fae5, #34d399)
-}
-
-.m-DAW_DASP {
-  background: linear-gradient(180deg, #f0abfc, #d946ef)
-}
-
-.m-DAW_FOL {
-  background: linear-gradient(180deg, #c4b5fd, #8b5cf6)
-}
-
-.m-DAW_ING_P {
-  background: linear-gradient(180deg, #dbeafe, #60a5fa)
-}
-
-.m-DAW_DW {
-  background: linear-gradient(180deg, #ffd7b5, #fb923c)
-}
-
-.m-DAW_DIW {
-  background: linear-gradient(180deg, #fce7f3, #f9a8d4)
-}
-
-.m-DAW_OPT_ALEP {
-  background: linear-gradient(180deg, #fef3c7, #f59e0b)
-}
-
-.m-DAW_OPT_DAC {
-  background: linear-gradient(180deg, #c7f9ff, #38bdf8)
-}
-
-.m-DAW_DAW {
-  background: linear-gradient(180deg, #e6e6fa, #a3a3ff)
-}
-
-.m-DAW_ED {
-  background: linear-gradient(180deg, #fbcfe8, #fb7185)
-}
-
-.m-DAW_SI {
-  background: linear-gradient(180deg, #d1fae5, #10b981)
-}
-
-.m-DAW_LMSGI {
-  background: linear-gradient(180deg, #fde68a, #f59e0b)
 }
 
 /* make events stretch to the grid cells using CSS grid row start / end via inline style */

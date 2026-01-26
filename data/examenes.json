@@ -1,0 +1,148 @@
+{
+    "events": [
+        {
+            "module": "dwes",
+            "label": "DWES",
+            "title": "Desarrollo Web en Entorno Servidor",
+            "day": "lunes",
+            "time": "08:30 - 11:30",
+            "color": "#4f46e5"
+        },
+        {
+            "module": "bd",
+            "label": "BD",
+            "title": "Bases de Datos",
+            "day": "lunes",
+            "time": "12:00 - 15:00",
+            "color": "#0d9488"
+        },
+        {
+            "module": "ipe1",
+            "label": "IPE1",
+            "title": "Itinerario Personal para la Empleabilidad 1",
+            "day": "lunes",
+            "time": "16:30 - 18:30",
+            "color": "#9333ea"
+        },
+        {
+            "module": "dwec",
+            "label": "DWEC",
+            "title": "Desarrollo Web en Entorno Cliente",
+            "day": "martes",
+            "time": "08:30 - 11:30",
+            "color": "#2563eb"
+        },
+        {
+            "module": "prog",
+            "label": "PROG",
+            "title": "Programación",
+            "day": "martes",
+            "time": "12:00 - 15:00",
+            "color": "#f97316"
+        },
+        {
+            "module": "eie",
+            "label": "EIE",
+            "title": "Empresa e Iniciativa Emprendedora",
+            "day": "martes",
+            "time": "17:00 - 19:00",
+            "color": "#ca8a04"
+        },
+        {
+            "module": "ipe2",
+            "label": "IPE2",
+            "title": "Itinerario Personal para la Empleabilidad 2",
+            "day": "miércoles",
+            "time": "08:30 - 10:00",
+            "color": "#7c3aed"
+        },
+        {
+            "module": "sasp",
+            "label": "SASP",
+            "title": "Sostenibilidad Aplicada a los Sectores Productivos",
+            "day": "miércoles",
+            "time": "10:30 - 11:30",
+            "color": "#16a34a"
+        },
+        {
+            "module": "dasp",
+            "label": "DASP",
+            "title": "Desarrollo de Aplicaciones Servidor",
+            "day": "miércoles",
+            "time": "12:00 - 13:00",
+            "color": "#0284c7"
+        },
+        {
+            "module": "fol",
+            "label": "FOL",
+            "title": "Formación y Orientación Laboral",
+            "day": "miércoles",
+            "time": "15:30 - 17:30",
+            "color": "#be123c"
+        },
+        {
+            "module": "ing-p",
+            "label": "ING_P",
+            "title": "Inglés Profesional",
+            "day": "miércoles",
+            "time": "18:00 - 20:00",
+            "color": "#059669"
+        },
+        {
+            "module": "diw",
+            "label": "DIW",
+            "title": "Diseño de Interfaces Web",
+            "day": "jueves",
+            "time": "08:30 - 11:00",
+            "color": "#db2777"
+        },
+        {
+            "module": "opt-alep",
+            "label": "OPT_ALEP",
+            "title": "Optativa: Ampliación de Lengua Extranjera",
+            "day": "jueves",
+            "time": "11:30 - 13:30",
+            "color": "#65a30d"
+        },
+        {
+            "module": "opt-dac",
+            "label": "OPT_DAC",
+            "title": "Optativa: Despliegue de Aplicaciones con Contenedores",
+            "day": "jueves",
+            "time": "15:30 - 17:30",
+            "color": "#0ea5e9"
+        },
+        {
+            "module": "daw",
+            "label": "DAW",
+            "title": "Despliegue de Aplicaciones Web",
+            "day": "jueves",
+            "time": "18:00 - 20:30",
+            "color": "#f43f5e"
+        },
+        {
+            "module": "ed",
+            "label": "ED",
+            "title": "Entornos de Desarrollo",
+            "day": "viernes",
+            "time": "08:30 - 10:30",
+            "color": "#8b5cf6"
+        },
+        {
+            "module": "si",
+            "label": "SI",
+            "title": "Sistemas Informáticos",
+            "day": "viernes",
+            "time": "11:00 - 14:00",
+            "color": "#14b8a6"
+        },
+        {
+            "module": "lmsgi",
+            "label": "LMSGI",
+            "title": "Lenguajes de Marcas y Sistemas de Gestión de Información",
+            "day": "viernes",
+            "time": "17:00 - 20:00",
+            "color": "#e11d48"
+        }
+    ]
+}
