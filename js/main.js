@@ -35,7 +35,8 @@ function extractModules(events) {
             map.set(e.module, {
                 id: e.module,
                 label: e.label,
-                color: e.color || randomColor()
+                color: e.color || randomColor(),
+                name: e.title
             });
         }
     });
@@ -77,7 +78,8 @@ fetch('./data/examenes.json')
         renderFiltersFromEvents(data.events);
         renderEvents(data.events);
         bindFilters();
-        updateChips(); // ➕
+        updateChips();
+        renderLegend(data.events);
     });
 
 /* ---------- TIME UTILS ---------- */
@@ -267,3 +269,32 @@ filtersContainer.querySelector('.chips').addEventListener('click', (e) => {
         selectAll.checked = [...all].every(c => c.checked);
     }
 });
+
+/* ---------- LEGEND ---------- */
+
+function renderLegend(events) {
+    const legend = document.querySelector('.legend-list');
+    if (!legend) return;
+
+    const modules = extractModules(events);
+
+    legend.innerHTML = `
+      ${modules.map(m => `
+        <div class="legend-item">
+          <dt class="legend-label">
+            <span
+              class="legend-dot"
+              style="--color:${m.color}"
+              aria-hidden="true"
+            ></span>
+            <span title="${m.label}">
+              ${m.label}
+            </span>
+          </dt>
+          <dd class="legend-desc">
+            ${m.name}
+          </dd>
+        </div>
+      `).join('')}
+    `;
+}
