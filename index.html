@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="es">
+
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
@@ -9,7 +10,18 @@
 
 <body>
   <div class="container">
-    <h1>EXÁMENES PARCIALES DEL C.F.G.S. de D.A.W. – Del 2 al 6 de Febrero del 2026</h1>
+    <h1 class="calendar-title">EXÁMENES PARCIALES DEL C.F.G.S. de D.A.W. – Del 2 al 6 de Febrero del 2026</h1>
+
+    <div class="calendar-toolbar">
+      <label class="calendar-selector">
+        Calendario:
+        <select class="calendar-select">
+          <option value="DAM" selected>DAM</option>
+          <option value="DAW">DAW</option>
+        </select>
+      </label>
+    </div>
+
 
     <!-- Filtros generados por JS -->
     <div class="filters">
@@ -20,17 +32,12 @@
 
           <div class="dropdown-panel hidden">
             <label>
-              <input
-                id="filter-search"
-                type="search"
-                class="filter-search"
-                placeholder="Buscar módulo…"
-              />
+              <input id="filter-search" type="search" class="filter-search" placeholder="Buscar módulo…" />
             </label>
 
             <label class="filter-all">
-                <input type="checkbox" id="filter-all" checked>
-                Seleccionar todos
+              <input type="checkbox" id="filter-all" checked>
+              Seleccionar todos
             </label>
 
             <div class="filter-list"></div>
@@ -77,7 +84,7 @@
 
     </div>
 
-        <!-- Leyenda de módulos -->
+    <!-- Leyenda de módulos -->
     <details class="legend" open>
       <summary>Leyenda de módulos</summary>
 
@@ -90,4 +97,5 @@
 
   <script src="./js/main.js"></script>
 </body>
+
 </html>

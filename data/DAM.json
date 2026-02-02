@@ -1,0 +1,148 @@
+{
+    "events": [
+        {
+            "module": "di",
+            "label": "DI",
+            "title": "Desarrollo de Interfaces",
+            "day": "lunes",
+            "time": "08:30 - 11:00",
+            "color": "#3a86ff"
+        },
+        {
+            "module": "aad",
+            "label": "AAD",
+            "title": "Acceso a Datos",
+            "day": "martes",
+            "time": "08:30 - 11:00",
+            "color": "#8338ec"
+        },
+        {
+            "module": "ipe2",
+            "label": "IPE2",
+            "title": "Itinerario Personal para la Empleabilidad II",
+            "day": "miércoles",
+            "time": "08:30 - 10:30",
+            "color": "#fb5607"
+        },
+        {
+            "module": "pmdm",
+            "label": "PMDM",
+            "title": "Programación Multimedia y Dispositivos Móviles",
+            "day": "jueves",
+            "time": "08:30 - 11:00",
+            "color": "#ff006e"
+        },
+        {
+            "module": "si",
+            "label": "SI",
+            "title": "Sistemas Informáticos",
+            "day": "viernes",
+            "time": "08:30 - 11:00",
+            "color": "#118ab2"
+        },
+        {
+            "module": "pro",
+            "label": "PRO",
+            "title": "Programación",
+            "day": "lunes",
+            "time": "12:00 - 15:00",
+            "color": "#ffd166"
+        },
+        {
+            "module": "sge",
+            "label": "SGE",
+            "title": "Sistemas de Gestión Empresarial",
+            "day": "martes",
+            "time": "12:00 - 15:00",
+            "color": "#2ec4b6"
+        },
+        {
+            "module": "dasp",
+            "label": "DASP",
+            "title": "Digitalización Aplicada a los Sectores Productivos",
+            "day": "miércoles",
+            "time": "12:00 - 13:30",
+            "color": "#06d6a0"
+        },
+        {
+            "module": "alep",
+            "label": "ALEP",
+            "title": "Ampliación de Lengua Extranjera",
+            "day": "jueves",
+            "time": "12:00 - 14:30",
+            "color": "#9b5de5"
+        },
+        {
+            "module": "psp",
+            "label": "PSP",
+            "title": "Programación de Servicios y Procesos",
+            "day": "viernes",
+            "time": "12:00 - 15:00",
+            "color": "#ff7a00"
+        },
+        {
+            "module": "ipe1",
+            "label": "IPE1",
+            "title": "Itinerario Personal para la Empleabilidad I",
+            "day": "lunes",
+            "time": "16:30 - 18:30",
+            "color": "#ffbe0b"
+        },
+        {
+            "module": "eie",
+            "label": "EIE",
+            "title": "Empresa e Iniciativa Emprendedora",
+            "day": "martes",
+            "time": "16:30 - 18:30",
+            "color": "#6c757d"
+        },
+        {
+            "module": "fol",
+            "label": "FOL",
+            "title": "Formación y Orientación Laboral",
+            "day": "miércoles",
+            "time": "15:30 - 17:30",
+            "color": "#adb5bd"
+        },
+        {
+            "module": "dac",
+            "label": "DAC",
+            "title": "Despliegue de Aplicaciones con Contenedores",
+            "day": "jueves",
+            "time": "15:30 - 17:30",
+            "color": "#f28482"
+        },
+        {
+            "module": "ing_p",
+            "label": "ING_P",
+            "title": "Inglés Profesional",
+            "day": "miércoles",
+            "time": "17:30 - 19:30",
+            "color": "#00bbf9"
+        },
+        {
+            "module": "lmsgi",
+            "label": "LMSGI",
+            "title": "Lenguajes de Marcas y Sistemas de Gestión de la Información",
+            "day": "jueves",
+            "time": "17:30 - 19:30",
+            "color": "#ef476f"
+        },
+        {
+            "module": "bd",
+            "label": "BD",
+            "title": "Bases de Datos",
+            "day": "viernes",
+            "time": "17:30 - 19:30",
+            "color": "#06d6a0"
+        },
+        {
+            "module": "ed",
+            "label": "ED",
+            "title": "Entorno de Desarrollo",
+            "day": "lunes",
+            "time": "18:30 - 21:00",
+            "color": "#8ecae6"
+        }
+    ]
+}

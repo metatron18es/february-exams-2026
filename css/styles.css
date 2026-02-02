@@ -306,3 +306,34 @@ h1 {
     display: none;
   }
 }
+
+.calendar-toolbar {
+  display: flex;
+  justify-content: flex-end;
+  margin: 12px 0 16px;
+}
+
+.calendar-selector {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 600;
+}
+
+.calendar-selector select {
+  appearance: none;
+  padding: 6px 28px 6px 10px;
+  border-radius: 999px;
+  border: 1px solid var(--muted);
+  background:
+    linear-gradient(45deg, transparent 50%, var(--muted) 50%),
+    linear-gradient(135deg, var(--muted) 50%, transparent 50%),
+    linear-gradient(to right, #fff, #fff);
+  background-position:
+    calc(100% - 16px) 50%,
+    calc(100% - 11px) 50%,
+    0 0;
+  background-size: 5px 5px, 5px 5px, 100% 100%;
+  background-repeat: no-repeat;
+  cursor: pointer;
+}

@@ -18,11 +18,19 @@ const DAY_LABELS = {
     'viernes': 'Viernes 6 de febrero'
 };
 
+const calendarSelect = document.querySelector('.calendar-select');
 const calendar = document.querySelector('.calendar');
 const trigger = document.querySelector('.dropdown-trigger');
 const filtersContainer = document.querySelector('.filters');
 const dropdownPanel = filtersContainer.querySelector('.dropdown-panel');
 const filterList = filtersContainer.querySelector('.filter-list');
+const titleEl = document.querySelector('.calendar-title');
+const baseCalendarHTML = calendar.innerHTML;
+
+const TITLES = {
+    DAM: 'EXÁMENES PARCIALES DEL C.F.G.S. de D.A.M. – Del 2 al 6 de Febrero del 2026',
+    DAW: 'EXÁMENES PARCIALES DEL C.F.G.S. de D.A.W. – Del 2 al 6 de Febrero del 2026'
+};
 
 
 /* ---------- MODULE EXTRACTION ---------- */
@@ -72,7 +80,39 @@ function renderFiltersFromEvents(events) {
 
 /* ---------- FETCH ---------- */
 
-fetch('./data/examenes.json')
+function loadCalendar(name) {
+    fetch(`./data/${name}.json`)
+        .then(res => res.json())
+        .then(data => {
+            // 1️⃣ limpiar calendario (manteniendo estructura)
+            calendar.innerHTML = baseCalendarHTML;
+
+            // 2️⃣ limpiar filtros
+            filterList.innerHTML = '';
+            filtersContainer.querySelector('.chips').innerHTML = '';
+
+            // 3️⃣ título dinámico
+            if (titleEl && TITLES[name]) {
+                titleEl.textContent = TITLES[name];
+            }
+
+            // 4️⃣ render normal
+            renderFiltersFromEvents(data.events);
+            renderEvents(data.events);
+            bindFilters();
+            updateChips();
+            renderLegend(data.events);
+        });
+}
+
+loadCalendar(calendarSelect.value);
+
+calendarSelect.addEventListener('change', e => {
+    loadCalendar(e.target.value);
+});
+
+
+fetch('./data/DAM.json')
     .then(res => res.json())
     .then(data => {
         renderFiltersFromEvents(data.events);
