@@ -55,15 +55,23 @@ http://localhost:8000
 
 ---
 
-## 📊 Datos de los exámenes
+## 📅 Selector de calendario
 
-Los exámenes se cargan desde:
+El calendario permite alternar entre los distintos ciclos formativos disponibles.
 
-```js
-fetch('./data/examenes.json')
-```
+### Uso
+1. Utiliza el selector **Calendario** situado en la parte superior de la página.
+2. Selecciona el ciclo que deseas consultar (**DAM** o **DAW**).
+3. El calendario se actualizará automáticamente mostrando los exámenes correspondientes al ciclo elegido.
 
-### Formato del archivo `examenes.json`
+No es necesario recargar la página.
+
+### Observaciones
+- Al cambiar de calendario se actualizan también los filtros y la leyenda.
+- Cada calendario muestra únicamente los módulos del ciclo seleccionado.
+- El funcionamiento es idéntico en escritorio y en dispositivos móviles.
+
+### Formato de los archivos `*.json`
 
 ```json
 {
