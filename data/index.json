@@ -1,0 +1,12 @@
+{
+    "calendars": [
+        {
+            "id": "DAM",
+            "label": "DAM"
+        },
+        {
+            "id": "DAW",
+            "label": "DAW"
+        }
+    ]
+}

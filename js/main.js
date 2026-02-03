@@ -1,6 +1,9 @@
+/* ---------- CONFIG ---------- */
+
 const BASE_HOUR = "08:30";
 const SLOT_MINUTES = 30;
 const HEADER_ROWS = 1;
+const STORAGE_KEY = 'calendar-state';
 
 const DAY_TO_COLUMN = {
     'lunes': 2,
@@ -18,6 +21,13 @@ const DAY_LABELS = {
     'viernes': 'Viernes 6 de febrero'
 };
 
+const TITLES = {
+    DAM: 'EXÁMENES PARCIALES DEL C.F.G.S. de D.A.M. – Del 2 al 6 de Febrero del 2026',
+    DAW: 'EXÁMENES PARCIALES DEL C.F.G.S. de D.A.W. – Del 2 al 6 de Febrero del 2026'
+};
+
+/* ---------- DOM ---------- */
+
 const calendarSelect = document.querySelector('.calendar-select');
 const calendar = document.querySelector('.calendar');
 const trigger = document.querySelector('.dropdown-trigger');
@@ -27,13 +37,91 @@ const filterList = filtersContainer.querySelector('.filter-list');
 const titleEl = document.querySelector('.calendar-title');
 const baseCalendarHTML = calendar.innerHTML;
 
-const TITLES = {
-    DAM: 'EXÁMENES PARCIALES DEL C.F.G.S. de D.A.M. – Del 2 al 6 de Febrero del 2026',
-    DAW: 'EXÁMENES PARCIALES DEL C.F.G.S. de D.A.W. – Del 2 al 6 de Febrero del 2026'
-};
+/* ---------- STORAGE ---------- */
 
+function saveState(partial) {
+    const current = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
+    localStorage.setItem(
+        STORAGE_KEY,
+        JSON.stringify({ ...current, ...partial })
+    );
+}
+
+function loadState() {
+    return JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
+}
+
+/* ---------- CALENDAR LIST ---------- */
+
+function loadCalendars() {
+    fetch('./data/index.json')
+        .then(res => res.json())
+        .then(data => {
+            calendarSelect.innerHTML = data.calendars.map(c => `
+                <option value="${c.id}">${c.label}</option>
+            `).join('');
+
+            const state = loadState();
+            calendarSelect.value = state.calendar || data.calendars[0].id;
+
+            loadCalendar(calendarSelect.value);
+        });
+}
+
+/* ---------- FETCH CALENDAR ---------- */
+
+function loadCalendar(name) {
+    fetch(`./data/${name}.json`)
+        .then(res => res.json())
+        .then(data => {
+            calendar.innerHTML = baseCalendarHTML;
+            filterList.innerHTML = '';
+            filtersContainer.querySelector('.chips').innerHTML = '';
+
+            if (titleEl && TITLES[name]) {
+                titleEl.textContent = TITLES[name];
+            }
+
+            renderFiltersFromEvents(data.events);
+            renderEvents(data.events);
+            bindFilters();
+            restoreFilters();
+            renderLegend(data.events);
+        });
+}
+
+calendarSelect.addEventListener('change', e => {
+    saveState({ calendar: e.target.value });
+    loadCalendar(e.target.value);
+});
+
+/* ---------- TIME UTILS ---------- */
+
+function timeToMinutes(time) {
+    const [h, m] = time.split(':').map(Number);
+    return h * 60 + m;
+}
+
+function getRowFromTime(time) {
+    const base = timeToMinutes(BASE_HOUR);
+    const current = timeToMinutes(time);
+    return HEADER_ROWS + 1 + (current - base) / SLOT_MINUTES;
+}
+
+function parseTimeRange(range) {
+    const [start, end] = range.split(' - ');
+    return {
+        rowStart: getRowFromTime(start),
+        rowEnd: getRowFromTime(end)
+    };
+}
 
 /* ---------- MODULE EXTRACTION ---------- */
+
+function randomColor() {
+    const hue = Math.floor(Math.random() * 360);
+    return `hsl(${hue}, 70%, 55%)`;
+}
 
 function extractModules(events) {
     const map = new Map();
@@ -52,105 +140,27 @@ function extractModules(events) {
     return [...map.values()];
 }
 
-/* ---------- RENDER FILTERS FROM EVENTS ---------- */
+/* ---------- RENDER FILTERS ---------- */
 
 function renderFiltersFromEvents(events) {
     const modules = extractModules(events);
 
-    filterList.innerHTML = `
-        ${modules.map(m => `
-        <label
-            class="filter-item"
-            data-label="${m.label.toLowerCase()}"
-        >
+    filterList.innerHTML = modules.map(m => `
+        <label class="filter-item" data-label="${m.label.toLowerCase()}">
             <input
-            type="checkbox"
-            checked
-            value="${m.id}"
-            data-module="${m.id}"
-            data-color="${m.color}"
+              type="checkbox"
+              checked
+              value="${m.id}"
+              data-module="${m.id}"
+              data-color="${m.color}"
             >
             <span class="color-dot" style="--color:${m.color}"></span>
             ${m.label}
         </label>
-        `).join('')}
-    `;
-}
-
-
-/* ---------- FETCH ---------- */
-
-function loadCalendar(name) {
-    fetch(`./data/${name}.json`)
-        .then(res => res.json())
-        .then(data => {
-            // 1️⃣ limpiar calendario (manteniendo estructura)
-            calendar.innerHTML = baseCalendarHTML;
-
-            // 2️⃣ limpiar filtros
-            filterList.innerHTML = '';
-            filtersContainer.querySelector('.chips').innerHTML = '';
-
-            // 3️⃣ título dinámico
-            if (titleEl && TITLES[name]) {
-                titleEl.textContent = TITLES[name];
-            }
-
-            // 4️⃣ render normal
-            renderFiltersFromEvents(data.events);
-            renderEvents(data.events);
-            bindFilters();
-            updateChips();
-            renderLegend(data.events);
-        });
-}
-
-loadCalendar(calendarSelect.value);
-
-calendarSelect.addEventListener('change', e => {
-    loadCalendar(e.target.value);
-});
-
-
-fetch('./data/DAM.json')
-    .then(res => res.json())
-    .then(data => {
-        renderFiltersFromEvents(data.events);
-        renderEvents(data.events);
-        bindFilters();
-        updateChips();
-        renderLegend(data.events);
-    });
-
-/* ---------- TIME UTILS ---------- */
-
-function timeToMinutes(time) {
-    const [h, m] = time.split(':').map(Number);
-    return h * 60 + m;
-}
-
-function getRowFromTime(time) {
-    const base = timeToMinutes(BASE_HOUR);
-    const current = timeToMinutes(time);
-    const diff = current - base;
-
-    return HEADER_ROWS + 1 + diff / SLOT_MINUTES;
-}
-
-function parseTimeRange(range) {
-    const [start, end] = range.split(' - ');
-    return {
-        rowStart: getRowFromTime(start),
-        rowEnd: getRowFromTime(end)
-    };
+    `).join('');
 }
 
 /* ---------- RENDER EVENTS ---------- */
-
-function randomColor() {
-    const hue = Math.floor(Math.random() * 360);
-    return `hsl(${hue}, 70%, 55%)`;
-}
 
 function renderEvents(events) {
     const fragment = document.createDocumentFragment();
@@ -160,7 +170,6 @@ function renderEvents(events) {
     events.forEach(e => {
         const day = e.day.toLowerCase();
 
-        // 👉 Título de día (solo móvil, una vez por día)
         if (!renderedDays.has(day)) {
             const dayTitle = document.createElement('div');
             dayTitle.className = 'day-title mobile-only';
@@ -181,8 +190,8 @@ function renderEvents(events) {
         div.style.gridRow = `${rowStart} / ${rowEnd}`;
         div.style.setProperty('--event-color', moduleColors.get(e.module));
         div.innerHTML = `
-          ${e.title}
-          <small>${e.time}</small>
+            ${e.title}
+            <small>${e.time}</small>
         `;
 
         fragment.appendChild(div);
@@ -191,14 +200,11 @@ function renderEvents(events) {
     calendar.appendChild(fragment);
 }
 
-
 /* ---------- FILTER LOGIC ---------- */
 
 function bindFilters() {
     const selectAll = document.getElementById('filter-all');
-    const moduleCheckboxes = filtersContainer.querySelectorAll(
-        'input[data-module]'
-    );
+    const moduleCheckboxes = filtersContainer.querySelectorAll('input[data-module]');
     const search = filtersContainer.querySelector('.filter-search');
 
     selectAll.addEventListener('change', () => {
@@ -206,6 +212,13 @@ function bindFilters() {
             cb.checked = selectAll.checked;
             toggleModule(cb.value, cb.checked);
         });
+
+        saveState({
+            visibleModules: selectAll.checked
+                ? [...moduleCheckboxes].map(c => c.value)
+                : []
+        });
+
         updateChips();
     });
 
@@ -213,28 +226,32 @@ function bindFilters() {
         cb.addEventListener('change', () => {
             toggleModule(cb.value, cb.checked);
             selectAll.checked = [...moduleCheckboxes].every(c => c.checked);
+
+            saveState({
+                visibleModules: [...moduleCheckboxes]
+                    .filter(c => c.checked)
+                    .map(c => c.value)
+            });
+
             updateChips();
         });
     });
 
-    // ➕ Buscador
     search.addEventListener('input', e => {
         const q = e.target.value.toLowerCase();
-        filtersContainer
-            .querySelectorAll('.filter-item')
+        saveState({ search: q });
+
+        filtersContainer.querySelectorAll('.filter-item')
             .forEach(item => {
                 item.hidden = !item.dataset.label.includes(q);
             });
     });
-
-    updateChips();
 }
 
-/* ---------- HELPERS ---------- */
+/* ---------- FILTER HELPERS ---------- */
 
 function toggleModule(moduleId, visible) {
-    document
-        .querySelectorAll('.module-' + moduleId)
+    document.querySelectorAll('.module-' + moduleId)
         .forEach(event => {
             event.classList.toggle('hidden', !visible);
         });
@@ -242,48 +259,66 @@ function toggleModule(moduleId, visible) {
 
 function updateChips() {
     const chips = filtersContainer.querySelector('.chips');
-    const checked = filtersContainer.querySelectorAll(
-        'input[data-module]:checked'
-    );
-
-    if (!chips) return;
+    const checked = filtersContainer.querySelectorAll('input[data-module]:checked');
 
     chips.innerHTML = `
-      ${[...checked].map(cb => `
-        <span class="chip" style="--color:${cb.dataset.color}" data-module="${cb.value}">
-          <button class="chip-remove" aria-label="Quitar filtro">
-            <img src="img/icons/close.svg" alt="">
-          </button>
-          <span class="chip-label">
-            ${cb.closest('label').textContent.trim()}
-          </span>
-        </span>
-      `).join('')}
-      <span class="chips-hint">Pulsa para filtrar</span>
+        ${[...checked].map(cb => `
+            <span class="chip" style="--color:${cb.dataset.color}" data-module="${cb.value}">
+                <button class="chip-remove" aria-label="Quitar filtro">
+                    <img src="img/icons/close.svg" alt="">
+                </button>
+                <span class="chip-label">
+                    ${cb.closest('label').textContent.trim()}
+                </span>
+            </span>
+        `).join('')}
+        <span class="chips-hint">Pulsa para filtrar</span>
     `;
 }
 
+function restoreFilters() {
+    const state = loadState();
+    const all = filtersContainer.querySelectorAll('input[data-module]');
+    const selectAll = document.getElementById('filter-all');
 
+    if (!state.visibleModules) {
+        all.forEach(cb => toggleModule(cb.value, true));
+        selectAll.checked = true;
+        updateChips();
+        return;
+    }
 
-/* ---------- DROPDOWN LOGIC (FIXED) ---------- */
+    all.forEach(cb => {
+        const visible = state.visibleModules.includes(cb.value);
+        cb.checked = visible;
+        toggleModule(cb.value, visible);
+    });
 
-// Abrir / cerrar al pulsar chips o trigger
-trigger.addEventListener('click', (e) => {
+    selectAll.checked = [...all].every(c => c.checked);
+
+    if (state.search) {
+        const search = filtersContainer.querySelector('.filter-search');
+        search.value = state.search;
+        search.dispatchEvent(new Event('input'));
+    }
+
+    updateChips();
+}
+
+/* ---------- DROPDOWN ---------- */
+
+trigger.addEventListener('click', e => {
     e.stopPropagation();
     dropdownPanel.classList.toggle('hidden');
 });
 
-// Click dentro del dropdown → NO cerrar
-dropdownPanel.addEventListener('click', (e) => {
-    e.stopPropagation();
-});
+dropdownPanel.addEventListener('click', e => e.stopPropagation());
 
-// Click fuera → cerrar
 document.addEventListener('click', () => {
     dropdownPanel.classList.add('hidden');
 });
 
-filtersContainer.querySelector('.chips').addEventListener('click', (e) => {
+filtersContainer.querySelector('.chips').addEventListener('click', e => {
     const removeBtn = e.target.closest('.chip-remove');
     if (!removeBtn) return;
 
@@ -299,12 +334,16 @@ filtersContainer.querySelector('.chips').addEventListener('click', (e) => {
     if (checkbox) {
         checkbox.checked = false;
         toggleModule(moduleId, false);
+
+        const all = filtersContainer.querySelectorAll('input[data-module]');
+        saveState({
+            visibleModules: [...all]
+                .filter(c => c.checked)
+                .map(c => c.value)
+        });
+
         updateChips();
 
-        // actualizar "seleccionar todo"
-        const all = filtersContainer.querySelectorAll(
-            'input[data-module]'
-        );
         const selectAll = document.getElementById('filter-all');
         selectAll.checked = [...all].every(c => c.checked);
     }
@@ -318,23 +357,17 @@ function renderLegend(events) {
 
     const modules = extractModules(events);
 
-    legend.innerHTML = `
-      ${modules.map(m => `
+    legend.innerHTML = modules.map(m => `
         <div class="legend-item">
-          <dt class="legend-label">
-            <span
-              class="legend-dot"
-              style="--color:${m.color}"
-              aria-hidden="true"
-            ></span>
-            <span title="${m.label}">
-              ${m.label}
-            </span>
-          </dt>
-          <dd class="legend-desc">
-            ${m.name}
-          </dd>
+            <dt class="legend-label">
+                <span class="legend-dot" style="--color:${m.color}"></span>
+                ${m.label}
+            </dt>
+            <dd class="legend-desc">${m.name}</dd>
         </div>
-      `).join('')}
-    `;
+    `).join('');
 }
+
+/* ---------- INIT ---------- */
+
+loadCalendars();
